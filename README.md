@@ -13,7 +13,7 @@
 
 **Policy-Driven Zero-Knowledge Verification for Privacy-Preserving Academic Credentials** is a final-year academic research and engineering project investigating the application of Zero-Knowledge Proofs (ZKPs) to academic eligibility verification.
 
-In conventional verification workflows, confirming basic qualification thresholds—such as whether a candidate possesses a minimum Cumulative Grade Point Average (CGPA) or graduated from a specific department—requires the applicant to submit complete, unredacted transcripts. This practice violates the core privacy principle of **data minimization** (GDPR Article 5(1)(c)), unnecessarily revealing full academic histories, elective course grades, semester backlogs, and sensitive demographic data to external parties who require only a boolean compliance confirmation: *"Does this candidate satisfy eligibility policy $\mathcal{P}$?"*
+In conventional verification workflows, confirming basic qualification thresholdsâ€”such as whether a candidate possesses a minimum Cumulative Grade Point Average (CGPA) or graduated from a specific departmentâ€”requires the applicant to submit complete, unredacted transcripts. This practice violates the core privacy principle of **data minimization** (GDPR Article 5(1)(c)), unnecessarily revealing full academic histories, elective course grades, semester backlogs, and sensitive demographic data to external parties who require only a boolean compliance confirmation: *"Does this candidate satisfy eligibility policy $\mathcal{P}$?"*
 
 This project designs and evaluates an enterprise-compatible, privacy-preserving verification system using **Groth16 zk-SNARKs** over the **BN254 (alt_bn128)** elliptic curve, coordinated through a **Spring Boot backend** and **MySQL metadata store**. By compiling eligibility policies into arithmetic circuits executed strictly on the student's personal workstation, the student generates a zero-knowledge proof ($\pi$) demonstrating that their genuine academic records satisfy all required thresholds without disclosing:
 1. Their actual numerical CGPA or letter grades.
@@ -112,18 +112,18 @@ This work is situated in **Applied Cryptography** and **Enterprise Privacy Engin
 
 This project draws upon peer-reviewed literature in zero-knowledge argument systems and algebraic primitives:
 
-1. **Groth, J.** (2016). *"On the Size of Pairing-Based Non-interactive Arguments."* In *EUROCRYPT 2016*, Lecture Notes in Computer Science, vol 9666, pp. 305–326. Springer, Berlin, Heidelberg. [DOI: 10.1007/978-3-662-49896-5_11](https://doi.org/10.1007/978-3-662-49896-5_11).  
+1. **Groth, J.** (2016). *"On the Size of Pairing-Based Non-interactive Arguments."* In *EUROCRYPT 2016*, Lecture Notes in Computer Science, vol 9666, pp. 305â€“326. Springer, Berlin, Heidelberg. [DOI: 10.1007/978-3-662-49896-5_11](https://doi.org/10.1007/978-3-662-49896-5_11).  
    *Relevance:* Defines the Groth16 zk-SNARK construction providing constant-size proofs (3 group elements) and constant pairing-count verification.
-2. **Grassi, L., Khovratovich, D., Rechberger, C., Schofnegger, M., & Walch, R.** (2021). *"Poseidon: A New Hash Function for Zero-Knowledge Proof Systems."* In *30th USENIX Security Symposium (USENIX Security 21)*, pp. 519–535. [USENIX Publication Link](https://www.usenix.org/conference/usenixsecurity21/presentation/grassi).  
+2. **Grassi, L., Khovratovich, D., Rechberger, C., Schofnegger, M., & Walch, R.** (2021). *"Poseidon: A New Hash Function for Zero-Knowledge Proof Systems."* In *30th USENIX Security Symposium (USENIX Security 21)*, pp. 519â€“535. [USENIX Publication Link](https://www.usenix.org/conference/usenixsecurity21/presentation/grassi).  
    *Relevance:* Formulates the Hades permutation-based algebraic hash function over prime fields $\mathbb{F}_r$, minimizing R1CS constraints for in-circuit commitments.
-3. **Camenisch, J., & Lysyanskaya, A.** (2001). *"An Efficient System for Non-transferable Anonymous Credentials with Optional Anonymity Revocation."* In *EUROCRYPT 2001*, Lecture Notes in Computer Science, vol 2045, pp. 93–118. Springer, Berlin, Heidelberg. [DOI: 10.1007/3-540-44987-6_7](https://doi.org/10.1007/3-540-44987-6_7).  
+3. **Camenisch, J., & Lysyanskaya, A.** (2001). *"An Efficient System for Non-transferable Anonymous Credentials with Optional Anonymity Revocation."* In *EUROCRYPT 2001*, Lecture Notes in Computer Science, vol 2045, pp. 93â€“118. Springer, Berlin, Heidelberg. [DOI: 10.1007/3-540-44987-6_7](https://doi.org/10.1007/3-540-44987-6_7).  
    *Relevance:* Foundational formalization of anonymous credential verification and non-transferability principles.
-4. **Ben-Sasson, E., Chiesa, A., Genkin, D., Tromer, E., & Virza, M.** (2013). *"SNARKs for C: Verifying Program Executions Succinctly and in Zero Knowledge."* In *CRYPTO 2013*, Lecture Notes in Computer Science, vol 8043, pp. 90–108. Springer, Berlin, Heidelberg. [DOI: 10.1007/978-3-642-40084-1_6](https://doi.org/10.1007/978-3-642-40084-1_6).  
+4. **Ben-Sasson, E., Chiesa, A., Genkin, D., Tromer, E., & Virza, M.** (2013). *"SNARKs for C: Verifying Program Executions Succinctly and in Zero Knowledge."* In *CRYPTO 2013*, Lecture Notes in Computer Science, vol 8043, pp. 90â€“108. Springer, Berlin, Heidelberg. [DOI: 10.1007/978-3-642-40084-1_6](https://doi.org/10.1007/978-3-642-40084-1_6).  
    *Relevance:* Practical realization of Quadratic Arithmetic Programs (QAPs) and non-interactive zero-knowledge toolchains.
 5. **Bowe, S., Gabizon, A., & Green, M.** (2018). *"A Multi-party Protocol for Constructing zk-SNARK Parameters (Powers of Tau)."* Cryptology ePrint Archive, Report 2017/1050. [ePrint Link](https://eprint.iacr.org/2017/1050).  
    *Relevance:* Foundation for the universal Phase 1 structured reference string (SRS) ceremonies used by `snarkjs`.
 6. **World Wide Web Consortium (W3C).** (2024). *"Verifiable Credentials Data Model v2.0."* W3C Proposed Recommendation. [W3C Technical Report](https://www.w3.org/TR/vc-data-model-2.0/).  
-   *Relevance:* Architectural reference for the tripartite Issuer–Holder–Verifier relationship.
+   *Relevance:* Architectural reference for the tripartite Issuerâ€“Holderâ€“Verifier relationship.
 
 ---
 
@@ -605,9 +605,9 @@ erDiagram
 - [ ] Initialize Spring Boot 3.x backend application with Maven Wrapper.
 - [ ] Define MySQL entities for policies, verification sessions, and audit receipts.
 - [ ] Implement REST endpoints:
-  - `POST /api/v1/policies` — Author eligibility policy.
-  - `POST /api/v1/sessions` — Issue fresh challenge nonce.
-  - `POST /api/v1/verify` — Accept and verify submitted proof payload.
+  - `POST /api/v1/policies` â€” Author eligibility policy.
+  - `POST /api/v1/sessions` â€” Issue fresh challenge nonce.
+  - `POST /api/v1/verify` â€” Accept and verify submitted proof payload.
 - [ ] Implement verification service wrapping `snarkjs` / pairing engine.
 
 ### Milestone 5: Empirical Benchmarking & Research Publication
@@ -656,42 +656,42 @@ Upon completion, the project will deliver:
 
 ```
 Academic-ZKP-Verification/
-├── backend/                            # Spring Boot verification & policy service (Milestone 4)
-│   ├── src/main/java/                  # Backend controllers, services, repositories
-│   ├── src/main/resources/             # application.yml, database schema migrations
-│   └── pom.xml                         # Maven build configuration
-│
-├── circuits/                           # Circom zero-knowledge circuit definitions (Milestone 2)
-│   ├── templates/                      # Modular circuit templates (comparators, hashers)
-│   ├── policy_verifier.circom          # Main academic policy verification circuit
-│   ├── build/                          # Compiled R1CS, sym, and WASM generators
-│   └── setup/                          # Powers of Tau, zkey files, verification_key.json
-│
-├── prover/                             # Student-side proof generation tooling (Milestone 3)
-│   ├── credentials/                    # Mock local credentials (gitignored private data)
-│   ├── generate_proof.js               # CLI script compiling witness and executing snarkjs
-│   └── package.json                    # Local npm dependencies (snarkjs)
-│
-├── docs/                               # Research documentation & architecture decisions
-│   ├── design-decisions/               # Architectural Decision Records (ADRs)
-│   └── research-notes/                 # Literature surveys, cryptographic math derivations
-│
-├── experiments/                        # Benchmarking & performance evaluation (Milestone 5)
-│   ├── benchmarks/                     # Execution time & memory profiling scripts
-│   └── results/                        # CSV logs, constraint tables, and latency plots
-│
-├── .gitignore                          # Excludes build outputs, keys, and private credentials
-└── README.md                           # Comprehensive project research documentation
+â”œâ”€â”€ backend/                            # Spring Boot verification & policy service (Milestone 4)
+â”‚   â”œâ”€â”€ src/main/java/                  # Backend controllers, services, repositories
+â”‚   â”œâ”€â”€ src/main/resources/             # application.yml, database schema migrations
+â”‚   â””â”€â”€ pom.xml                         # Maven build configuration
+â”‚
+â”œâ”€â”€ circuits/                           # Circom zero-knowledge circuit definitions (Milestone 2)
+â”‚   â”œâ”€â”€ templates/                      # Modular circuit templates (comparators, hashers)
+â”‚   â”œâ”€â”€ policy_verifier.circom          # Main academic policy verification circuit
+â”‚   â”œâ”€â”€ build/                          # Compiled R1CS, sym, and WASM generators
+â”‚   â””â”€â”€ setup/                          # Powers of Tau, zkey files, verification_key.json
+â”‚
+â”œâ”€â”€ prover/                             # Student-side proof generation tooling (Milestone 3)
+â”‚   â”œâ”€â”€ credentials/                    # Mock local credentials (gitignored private data)
+â”‚   â”œâ”€â”€ generate_proof.js               # CLI script compiling witness and executing snarkjs
+â”‚   â””â”€â”€ package.json                    # Local npm dependencies (snarkjs)
+â”‚
+â”œâ”€â”€ docs/                               # Research documentation & architecture decisions
+â”‚   â”œâ”€â”€ design-decisions/               # Architectural Decision Records (ADRs)
+â”‚   â””â”€â”€ research-notes/                 # Literature surveys, cryptographic math derivations
+â”‚
+â”œâ”€â”€ experiments/                        # Benchmarking & performance evaluation (Milestone 5)
+â”‚   â”œâ”€â”€ benchmarks/                     # Execution time & memory profiling scripts
+â”‚   â””â”€â”€ results/                        # CSV logs, constraint tables, and latency plots
+â”‚
+â”œâ”€â”€ .gitignore                          # Excludes build outputs, keys, and private credentials
+â””â”€â”€ README.md                           # Comprehensive project research documentation
 ```
 
 ---
 
 ## 29. Research References
 
-1. **Groth, J.** (2016). *On the Size of Pairing-Based Non-interactive Arguments.* In: International Conference on the Theory and Applications of Cryptographic Techniques (EUROCRYPT 2016), Lecture Notes in Computer Science, vol 9666, pp. 305–326. Springer, Berlin, Heidelberg. [https://doi.org/10.1007/978-3-662-49896-5_11](https://doi.org/10.1007/978-3-662-49896-5_11).
-2. **Grassi, L., Khovratovich, D., Rechberger, C., Schofnegger, M., & Walch, R.** (2021). *Poseidon: A New Hash Function for Zero-Knowledge Proof Systems.* In: 30th USENIX Security Symposium (USENIX Security 21), pp. 519–535. [https://www.usenix.org/conference/usenixsecurity21/presentation/grassi](https://www.usenix.org/conference/usenixsecurity21/presentation/grassi).
-3. **Camenisch, J., & Lysyanskaya, A.** (2001). *An Efficient System for Non-transferable Anonymous Credentials with Optional Anonymity Revocation.* In: International Conference on the Theory and Applications of Cryptographic Techniques (EUROCRYPT 2001), Lecture Notes in Computer Science, vol 2045, pp. 93–118. Springer, Berlin, Heidelberg. [https://doi.org/10.1007/3-540-44987-6_7](https://doi.org/10.1007/3-540-44987-6_7).
-4. **Ben-Sasson, E., Chiesa, A., Genkin, D., Tromer, E., & Virza, M.** (2013). *SNARKs for C: Verifying Program Executions Succinctly and in Zero Knowledge.* In: Advances in Cryptology – CRYPTO 2013, Lecture Notes in Computer Science, vol 8043, pp. 90–108. Springer, Berlin, Heidelberg. [https://doi.org/10.1007/978-3-642-40084-1_6](https://doi.org/10.1007/978-3-642-40084-1_6).
+1. **Groth, J.** (2016). *On the Size of Pairing-Based Non-interactive Arguments.* In: International Conference on the Theory and Applications of Cryptographic Techniques (EUROCRYPT 2016), Lecture Notes in Computer Science, vol 9666, pp. 305â€“326. Springer, Berlin, Heidelberg. [https://doi.org/10.1007/978-3-662-49896-5_11](https://doi.org/10.1007/978-3-662-49896-5_11).
+2. **Grassi, L., Khovratovich, D., Rechberger, C., Schofnegger, M., & Walch, R.** (2021). *Poseidon: A New Hash Function for Zero-Knowledge Proof Systems.* In: 30th USENIX Security Symposium (USENIX Security 21), pp. 519â€“535. [https://www.usenix.org/conference/usenixsecurity21/presentation/grassi](https://www.usenix.org/conference/usenixsecurity21/presentation/grassi).
+3. **Camenisch, J., & Lysyanskaya, A.** (2001). *An Efficient System for Non-transferable Anonymous Credentials with Optional Anonymity Revocation.* In: International Conference on the Theory and Applications of Cryptographic Techniques (EUROCRYPT 2001), Lecture Notes in Computer Science, vol 2045, pp. 93â€“118. Springer, Berlin, Heidelberg. [https://doi.org/10.1007/3-540-44987-6_7](https://doi.org/10.1007/3-540-44987-6_7).
+4. **Ben-Sasson, E., Chiesa, A., Genkin, D., Tromer, E., & Virza, M.** (2013). *SNARKs for C: Verifying Program Executions Succinctly and in Zero Knowledge.* In: Advances in Cryptology â€“ CRYPTO 2013, Lecture Notes in Computer Science, vol 8043, pp. 90â€“108. Springer, Berlin, Heidelberg. [https://doi.org/10.1007/978-3-642-40084-1_6](https://doi.org/10.1007/978-3-642-40084-1_6).
 5. **Bowe, S., Gabizon, A., & Green, M.** (2018). *A Multi-party Protocol for Constructing zk-SNARK Parameters (Powers of Tau).* Cryptology ePrint Archive, Report 2017/1050. [https://eprint.iacr.org/2017/1050](https://eprint.iacr.org/2017/1050).
 6. **iden3.** (2023). *Circom 2.0: Modern Zero-Knowledge Circuit Compiler.* iden3 Documentation. [https://docs.circom.io/](https://docs.circom.io/).
 7. **iden3.** (2023). *snarkjs: JavaScript Implementation of zk-SNARKs.* GitHub Repository. [https://github.com/iden3/snarkjs](https://github.com/iden3/snarkjs).
