@@ -103,21 +103,21 @@ flowchart LR
 Finite fields $\mathbb{F}_r$ operate on modular arithmetic. To represent fractional grades without floating-point errors, all CGPA values use **$10^2$ fixed-point integer scaling**:
 
 $$
-\text{scaled}\_\text{cgpa} = \lfloor \text{actual}\_\text{cgpa} \times 100 \rfloor \quad (\text{e.g., } 8.65 \implies 865, \quad 7.50 \implies 750)
+CGPA_{scaled} = \lfloor CGPA_{actual} \times 100 \rfloor \quad (\text{e.g., } 8.65 \implies 865, \quad 7.50 \implies 750)
 $$
 
-- **Domain Range Constraints:** Both the private $\text{scaled}\_\text{cgpa}$ and public $\text{min}\_\text{cgpa}$ must be strictly constrained to $[0, 1000]$ (representing valid grades from $0.00$ to $10.00$).
-- **Inequality Enforcement:** To prove $\text{actual}\_\text{cgpa} \ge \text{min}\_\text{cgpa}$ without revealing the candidate's exact score, the circuit computes the difference $\Delta = \text{scaled}\_\text{cgpa} - \text{scaled}\_\text{min}\_\text{cgpa}$. If $\text{actual}\_\text{cgpa} < \text{min}\_\text{cgpa}$, the subtraction underflows modulo $r \approx 2^{254}$, producing a value close to $r$. The circuit enforces a **10-bit binary decomposition** on $\Delta$:
+- **Domain Range Constraints:** Both the private $CGPA_{scaled}$ and public $CGPA_{min}$ must be strictly constrained to $[0, 1000]$ (representing valid grades from $0.00$ to $10.00$).
+- **Inequality Enforcement:** To prove $CGPA_{actual} \ge CGPA_{min}$ without revealing the candidate's exact score, the circuit computes the difference $\Delta = CGPA_{scaled} - CGPA_{min,scaled}$. If $CGPA_{actual} < CGPA_{min}$, the subtraction underflows modulo $r \approx 2^{254}$, producing a value close to $r$. The circuit enforces a **10-bit binary decomposition** on $\Delta$:
 
 $$
 \Delta = \sum_{i=0}^{9} b_i \cdot 2^i, \quad b_i \cdot (1 - b_i) = 0, \quad \forall i \in \{0, \dots, 9\}
 $$
 
-- **Upper-Bound Enforcement:** Because 10-bit binary decomposition alone permits values in the range $[0, 1023]$ ($2^{10} - 1$), the circuit requires an explicit upper-bound check ($\Delta \le 1000$) alongside input domain constraints on both $\text{scaled}\_\text{cgpa} \in [0, 1000]$ and $\text{min}\_\text{cgpa} \in [0, 1000]$ to prevent out-of-range evaluation. Any underflow value $\Delta \approx r \gg 1023$ cannot satisfy the decomposition over $\mathbb{F}_r$.
+- **Upper-Bound Enforcement:** Because 10-bit binary decomposition alone permits values in the range $[0, 1023]$ ($2^{10} - 1$), the circuit requires an explicit upper-bound check ($\Delta \le 1000$) alongside input domain constraints on both $CGPA_{scaled} \in [0, 1000]$ and $CGPA_{min} \in [0, 1000]$ to prevent out-of-range evaluation. Any underflow value $\Delta \approx r \gg 1023$ cannot satisfy the decomposition over $\mathbb{F}_r$.
 
 ### Public Inputs vs. Private Witnesses
-- **Private Witness (Student Machine Only):** $\text{actual}\_\text{cgpa}$ ($865$), $\text{actual}\_\text{branch}$ ($101$), $\text{actual}\_\text{degree}$ ($1$), and internal witness evaluation signals.
-- **Public Signals (Sent to Backend):** $\text{min}\_\text{cgpa}$ ($750$), $\text{expected}\_\text{branch}$ ($101$), $\text{expected}\_\text{degree}$ ($1$), and $\text{session}\_\text{nonce}$ ($256\text{-bit}$ token). (Issuer public key coordinates remain omitted pending signature verification implementation).
+- **Private Witness (Student Machine Only):** $CGPA_{actual}$ ($865$), $Branch_{actual}$ ($101$), $Degree_{actual}$ ($1$), and internal witness evaluation signals.
+- **Public Signals (Sent to Backend):** $CGPA_{min}$ ($750$), $Branch_{expected}$ ($101$), $Degree_{expected}$ ($1$), and $nonce_{session}$ ($256\text{-bit}$ token). (Issuer public key coordinates remain omitted pending signature verification implementation).
 
 ### Groth16 Prover and Verifier Complexity
 - **Prover Workload:** Witness generation scales linearly with circuit size ($\mathcal{O}(|C|)$). Proof generation is dominated by Fast Fourier Transforms (FFTs) for polynomial evaluations and multi-scalar multiplications (MSMs) over elliptic curve groups $G_1$ and $G_2$, which scale with the total constraint count $|C|$.
@@ -125,7 +125,7 @@ $$
 - **Proof Structure:** A Groth16 proof consists of exactly three curve points $\pi = (A \in G_1, B \in G_2, C \in G_1)$. The exact serialized byte size depends on the encoding format (e.g., compressed or uncompressed point coordinates vs. `snarkjs` JSON representation).
 
 ### Security Boundaries and Protocol Nuances
-- **Replay Protection via Session Nonces:** Proofs are bound to a single-use $\text{session}\_\text{nonce}$ issued by the backend. Expired, reused, or unrecognized nonces are rejected.
+- **Replay Protection via Session Nonces:** Proofs are bound to a single-use $nonce_{session}$ issued by the backend. Expired, reused, or unrecognized nonces are rejected.
 - **Non-Transferability Limitation:** Standard zero-knowledge proofs are transferable by design. While session nonces prevent external adversaries from replaying intercepted proofs, ZKPs alone do not prevent a student from voluntarily sharing their private credential file or signing keys with another person. Full non-transferability requires Designated Verifier Proofs (DVPs) or hardware-isolated keys, which are reserved for future work.
 - **Issuer Authenticity (Planned / Under Investigation):** A plain Poseidon hash is unkeyed and allows a prover to hash self-fabricated grades. A symmetric HMAC requires sharing a secret key, compromising verifier non-repudiation. In-circuit **EdDSA signatures over the BabyJubjub curve** with Poseidon commitments represent the primary candidate architecture under active investigation.
 
