@@ -101,12 +101,19 @@ flowchart LR
 
 ### Fixed-Point CGPA Representation and Range Checks
 Finite fields $\mathbb{F}_r$ operate on modular arithmetic. To represent fractional grades without floating-point errors, all CGPA values use **$10^2$ fixed-point integer scaling**:
-$$\text{scaled\_cgpa} = \lfloor \text{actual\_cgpa} \times 100 \rfloor \quad (\text{e.g., } 8.65 \implies 865, \quad 7.50 \implies 750)$$
+
+$$
+\text{scaled\_cgpa} = \lfloor \text{actual\_cgpa} \times 100 \rfloor \quad (\text{e.g., } 8.65 \implies 865, \quad 7.50 \implies 750)
+$$
 
 - **Domain Range Constraints:** Both the private $\text{scaled\_cgpa}$ and public $\text{min\_cgpa}$ must be strictly constrained to $[0, 1000]$ (representing valid grades from $0.00$ to $10.00$).
 - **Inequality Enforcement:** To prove $\text{actual\_cgpa} \ge \text{min\_cgpa}$ without revealing the candidate's exact score, the circuit computes the difference $\Delta = \text{scaled\_cgpa} - \text{scaled\_min\_cgpa}$. If $\text{actual\_cgpa} < \text{min\_cgpa}$, the subtraction underflows modulo $r \approx 2^{254}$, producing a value close to $r$. The circuit enforces a **10-bit binary decomposition** on $\Delta$:
-  $$\Delta = \sum_{i=0}^{9} b_i \cdot 2^i, \quad b_i \cdot (1 - b_i) = 0, \quad \forall i \in \{0, \dots, 9\}$$
-- **Upper-Bound Enforcement:** Because 10-bit binary decomposition alone permits values in the range $[0, 1023]$ ($2^{10} - 1$), the circuit requires an explicit upper-bound check ($\Delta \le 1000$) alongside input domain constraints on both $\text{scaled\_cgpa}$ and $\text{min\_cgpa} \in [0, 1000]$ to prevent out-of-range evaluation. Any underflow value $\Delta \approx r \gg 1023$ cannot satisfy the decomposition over $\mathbb{F}_r$.
+
+$$
+\Delta = \sum_{i=0}^{9} b_i \cdot 2^i, \quad b_i \cdot (1 - b_i) = 0, \quad \forall i \in \{0, \dots, 9\}
+$$
+
+- **Upper-Bound Enforcement:** Because 10-bit binary decomposition alone permits values in the range $[0, 1023]$ ($2^{10} - 1$), the circuit requires an explicit upper-bound check ($\Delta \le 1000$) alongside input domain constraints on both $\text{scaled\_cgpa} \in [0, 1000]$ and $\text{min\_cgpa} \in [0, 1000]$ to prevent out-of-range evaluation. Any underflow value $\Delta \approx r \gg 1023$ cannot satisfy the decomposition over $\mathbb{F}_r$.
 
 ### Public Inputs vs. Private Witnesses
 - **Private Witness (Student Machine Only):** $\text{actual\_cgpa}$ ($865$), $\text{actual\_branch}$ ($101$), $\text{actual\_degree}$ ($1$), and internal witness evaluation signals.
